@@ -17,9 +17,11 @@ public class ContactData {
   private final String email2;
   private final String email3;
   private final String homepage;
+  private final String bday;
+  private final String bmonth;
   private final String byear;
 
-  public ContactData(String firstname, String firtsname2, String lastname, String nickname, String title, String company, String address, String address2, String home, String mobile, String work, String fax, String email, String email2, String email3, String homepage, String byear) {
+  public ContactData(String firstname, String firtsname2, String lastname, String nickname, String title, String company, String address, String address2, String home, String mobile, String work, String fax, String email, String email2, String email3, String homepage, String bday, String bmonth, String byear) {
     this.firstname = firstname;
     this.firtsname2 = firtsname2;
     this.lastname = lastname;
@@ -36,6 +38,8 @@ public class ContactData {
     this.email2 = email2;
     this.email3 = email3;
     this.homepage = homepage;
+    this.bday = bday;
+    this.bmonth = bmonth;
     this.byear = byear;
   }
 
@@ -102,6 +106,10 @@ public class ContactData {
   public String getHomepage() {
     return homepage;
   }
+
+  public String getBday() { return bday; }
+
+  public String getBmonth() { return bmonth; }
 
   public String getByear() { return byear; }
 }

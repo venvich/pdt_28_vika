@@ -3,6 +3,7 @@ package ru.stqa.pft.addressbook;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.concurrent.TimeUnit;
 
@@ -26,7 +27,7 @@ public class ContactCreationTests {
         fillContactForm(new ContactData("Firstname", "Firtsname2", "Lastname", "First.Last", "Dr.", "Test GmbH",
                 "Neverstreet 1, Nevertown 123", "Neverstreet 1, Nevertown 1234",
                 "+1234567890", "+41781111111", "+41312222222", "+41313333333",
-                "", "", "", "www.mypage.com", "1980"));
+                "", "", "", "www.mypage.com", "1", "Januar", "1980"));
         submitContactCreation();
         gotoHomePage();
     }
@@ -85,15 +86,8 @@ public class ContactCreationTests {
         wd.findElement(By.name("homepage")).click();
         wd.findElement(By.name("homepage")).clear();
         wd.findElement(By.name("homepage")).sendKeys(contactData.getHomepage());
-        if (!wd.findElement(By.xpath("//div[@id='content']/form/select[1]//option[1]")).isSelected()) {
-            wd.findElement(By.xpath("//div[@id='content']/form/select[1]//option[1]")).click();
-        }
-        if (!wd.findElement(By.xpath("//div[@id='content']/form/select[1]//option[3]")).isSelected()) {
-            wd.findElement(By.xpath("//div[@id='content']/form/select[1]//option[3]")).click();
-        }
-        if (!wd.findElement(By.xpath("//div[@id='content']/form/select[2]//option[2]")).isSelected()) {
-            wd.findElement(By.xpath("//div[@id='content']/form/select[2]//option[2]")).click();
-        }
+        new Select(wd.findElement(By.name("bday"))).selectByVisibleText(contactData.getBday());
+        new Select(wd.findElement(By.name("bmonth"))).selectByVisibleText(contactData.getBmonth());
         wd.findElement(By.name("byear")).click();
         wd.findElement(By.name("byear")).clear();
         wd.findElement(By.name("byear")).sendKeys(contactData.getByear());
