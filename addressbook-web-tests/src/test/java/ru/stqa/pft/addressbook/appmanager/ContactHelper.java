@@ -1,13 +1,14 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import ru.stqa.pft.addressbook.model.ContactData;
 
 public class ContactHelper extends HelperBase {
 
-  public ContactHelper(FirefoxDriver wd) {
+  public ContactHelper(WebDriver wd) {
     super(wd);
   }
 
@@ -16,7 +17,7 @@ public class ContactHelper extends HelperBase {
   }
 
   public void submitContactCreation() {
-    wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
+    wd.findElement(By.xpath(".//*[@id='content']/form/input[21]")).click();
   }
 
   public void fillContactForm(ContactData contactData) {
@@ -42,15 +43,15 @@ public class ContactHelper extends HelperBase {
   }
 
   public void initContactCreation() {
-    wd.findElement(By.linkText("Neuer Eintrag")).click();
+    wd.findElement(By.linkText("add new")).click();
   }
 
   public void selectContact() {
-    click(By.id("2"));
+    click(By.id("8"));
   }
 
   public void initContactModification() {
-    click(By.cssSelector("img[alt=\"Ändern\"]"));
+    click(By.cssSelector("img[alt=\"Edit\"]"));
   }
 
   public void submitContactModification() {
@@ -58,7 +59,9 @@ public class ContactHelper extends HelperBase {
   }
 
   public void deleteContact() {
-    click(By.xpath("//input[@value='Löschen']"));
+
+    click(By.xpath("//input[@value='Delete']"));
+    wd.switchTo().alert().accept();
   }
 
   public void submitContactDeletion() {
