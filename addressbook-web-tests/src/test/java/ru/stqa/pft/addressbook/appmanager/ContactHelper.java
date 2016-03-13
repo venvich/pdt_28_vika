@@ -1,5 +1,6 @@
 package ru.stqa.pft.addressbook.appmanager;
 
+import com.thoughtworks.selenium.webdriven.commands.Click;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -63,6 +64,10 @@ public class ContactHelper extends HelperBase {
     wd.findElements(By.name("selected[]")).get(index).click();
   }
 
+  public void initContactModification(int index) {
+    //click(By.cssSelector("img[alt=\"Edit\"]"));
+    click(By.xpath(".//*[@id='maintable']/tbody/tr[" + index + "]/td[8]/a/img"));
+  }
   public void initContactModification() {
     click(By.cssSelector("img[alt=\"Edit\"]"));
   }
