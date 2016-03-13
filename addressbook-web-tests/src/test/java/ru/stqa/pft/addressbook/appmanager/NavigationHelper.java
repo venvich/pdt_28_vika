@@ -3,6 +3,9 @@ package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.concurrent.TimeUnit;
 
 public class NavigationHelper extends HelperBase {
 
@@ -25,6 +28,7 @@ public class NavigationHelper extends HelperBase {
       return;
     }
     click(By.linkText("home"));
+    wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
   }
 
   public void gotoHomePage() {
@@ -32,5 +36,6 @@ public class NavigationHelper extends HelperBase {
       return;
     }
     click(By.linkText("home page"));
+    wd.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
   }
 }
