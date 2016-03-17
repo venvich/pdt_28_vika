@@ -22,10 +22,12 @@ public class ContactHelper extends HelperBase {
 
   public void gotoHomePage() {
     wd.findElement(By.xpath("//div/div[4]/div/i/a[2]")).click();
+    wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
   }
 
   public void submitContactCreation() {
     wd.findElement(By.xpath(".//*[@id='content']/form/input[21]")).click();
+    wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
   }
 
   public void fillContactForm(ContactData contactData, boolean creation) {
@@ -58,22 +60,27 @@ public class ContactHelper extends HelperBase {
 
   public void initContactCreation() {
     wd.findElement(By.linkText("add new")).click();
+    wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
   }
 
   public void selectContact(int index) {
     wd.findElements(By.name("selected[]")).get(index).click();
+    wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
   }
 
   public void initContactModification(int index) {
     //click(By.cssSelector("img[alt=\"Edit\"]"));
     click(By.xpath(".//*[@id='maintable']/tbody/tr[" + index + "]/td[8]/a/img"));
+    wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
   }
   public void initContactModification() {
     click(By.cssSelector("img[alt=\"Edit\"]"));
+    wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
   }
 
   public void submitContactModification() {
     click(By.name("update"));
+    wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
   }
 
   public void deleteContact() {
@@ -85,6 +92,7 @@ public class ContactHelper extends HelperBase {
 
   public void submitContactDeletion() {
     click(By.xpath("(//input[@name='update'])[3]"));
+    wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
   }
 
   public boolean isThereAContact() {
@@ -95,6 +103,14 @@ public class ContactHelper extends HelperBase {
     initContactCreation();
     fillContactForm(contact, true);
     submitContactCreation();
+    gotoHomePage();
+  }
+
+  public void modifyContact(List<ContactData> before, int index, ContactData contact) {
+    selectContact(index);
+    initContactModification(before.size() + 1);
+    fillContactForm(contact, false);
+    submitContactModification();
     gotoHomePage();
   }
 
