@@ -21,7 +21,8 @@ public class ContactCreationTests extends TestBase {
               .withEmail("peter.klee@gmail.com")
               .withBday("1")
               .withBmonth("January")
-              .withByear("1980").withNew_group("Test1");
+              .withByear("1980")
+              .withNew_group("Test1");
       app.contact().createContact(contact);
       List<ContactData> after = app.contact().list();
       Assert.assertEquals(after.size(), before.size() + 1);

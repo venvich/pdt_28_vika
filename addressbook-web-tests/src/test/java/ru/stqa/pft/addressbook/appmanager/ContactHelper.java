@@ -8,9 +8,7 @@ import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class ContactHelper extends HelperBase {
@@ -120,30 +118,6 @@ public class ContactHelper extends HelperBase {
   public List<ContactData> list() {
 
     List<ContactData> contacts = new ArrayList<ContactData>();
-    List<WebElement> rows = wd.findElements(By.xpath("//tbody/tr[@name='entry']"));
-    for (WebElement row : rows) {
-      List<WebElement> cells = row.findElements(By.tagName("td"));
-      int id = Integer.parseInt(row.findElement(By.tagName("input")).getAttribute("value"));
-      String lastname = cells.get(1).getText();
-      String firstname = cells.get(2).getText();
-      String address = cells.get(3).getText();
-      String email = cells.get(4).getText();
-      String phones = cells.get(5).getText();
-      ContactData contact = new ContactData()
-              .withId(id)
-              .withFirstname(firstname)
-              .withLastname(lastname)
-              .withAddress(address)
-              .withHome(phones)
-              .withEmail(email);
-      contacts.add(contact);
-    }
-    return contacts;
-
-  }
-  public Set<ContactData> all() {
-
-    Set<ContactData> contacts = new HashSet<ContactData>();
     List<WebElement> rows = wd.findElements(By.xpath("//tbody/tr[@name='entry']"));
     for (WebElement row : rows) {
       List<WebElement> cells = row.findElements(By.tagName("td"));
