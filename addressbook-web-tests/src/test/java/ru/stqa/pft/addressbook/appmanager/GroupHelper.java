@@ -74,6 +74,7 @@ public class GroupHelper extends HelperBase {
     return wd.findElements(By.name("selected[]")).size();
   }
 
+  // list
   public List<GroupData> list() {
 
     List<GroupData> groups = new ArrayList<GroupData>();
