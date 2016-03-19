@@ -1,11 +1,8 @@
 package ru.stqa.pft.addressbook.appmanager;
 
-import com.thoughtworks.selenium.webdriven.commands.Click;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
@@ -21,7 +18,7 @@ public class ContactHelper extends HelperBase {
   }
 
   public void gotoHomePage() {
-    wd.findElement(By.xpath("//div/div[4]/div/i/a[2]")).click();
+    click(By.linkText("home page"));
     wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
   }
 
@@ -106,7 +103,7 @@ public class ContactHelper extends HelperBase {
     gotoHomePage();
   }
 
-  public void modifyContact(List<ContactData> before, int index, ContactData contact) {
+  public void modify(List<ContactData> before, int index, ContactData contact) {
     selectContact(index);
     initContactModification(before.size() + 1);
     fillContactForm(contact, false);
@@ -118,7 +115,7 @@ public class ContactHelper extends HelperBase {
     return wd.findElements(By.name("selected[]")).size();
   }
 
-  public List<ContactData> getContactList() {
+  public List<ContactData> list() {
 
     List<ContactData> contacts = new ArrayList<ContactData>();
     List<WebElement> rows = wd.findElements(By.xpath("//tbody/tr[@name='entry']"));
@@ -130,8 +127,13 @@ public class ContactHelper extends HelperBase {
       String address = cells.get(3).getText();
       String email = cells.get(4).getText();
       String phones = cells.get(5).getText();
-      ContactData contact = new ContactData(id, firstname, null, lastname, null, null, null, address, null, phones, null, null, null,
-              email, null, null, null, null, null, null, null);
+      ContactData contact = new ContactData()
+              .withId(id)
+              .withFirstname(firstname)
+              .withLastname(lastname)
+              .withAddress(address)
+              .withHome(phones)
+              .withEmail(email);
       contacts.add(contact);
     }
     return contacts;

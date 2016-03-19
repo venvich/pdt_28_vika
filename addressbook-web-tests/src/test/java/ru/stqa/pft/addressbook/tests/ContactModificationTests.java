@@ -7,31 +7,44 @@ import ru.stqa.pft.addressbook.model.ContactData;
 
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class ContactModificationTests extends TestBase {
 
   @BeforeMethod
   public void ensurePreconditions() {
-    app.getNavigationHelper().goHome();
-    if (!app.getContactHelper().isThereAContact()) {
-      app.getContactHelper().createContact(new ContactData("Peter", "Paul", "Klee", "First.Last", "Dr.", "Test GmbH",
-              "Neverstreet 1, Nevertown 123", "Neverstreet 1, Nevertown 1234",
-              "+1234567890", "+41781111111", "+41312222222", "+41313333333",
-              "", "", "", "www.mypage.com", "1", "January", "1980", "Test1"));
+    app.goTo().goHome();
+    if (app.contact().list().size() == 0) {
+      app.contact().createContact(new ContactData()
+              .withFirstname("Pascal")
+              .withLastname("Berger")
+              .withAddress("Everstreet 1, Evertown 1234")
+              .withHome("+2234567890")
+              .withEmail("pascal.berger@gmail.com")
+              .withBday("5")
+              .withBmonth("February")
+              .withByear("1979")
+              .withNew_group("Test1"));
     }
   }
 
   @Test
   public void testContactModification() {
-    List<ContactData> before = app.getContactHelper().getContactList();
+    List<ContactData> before = app.contact().list();
     int index = before.size() - 1;
-    ContactData contact = new ContactData(before.get(index).getId(), "Martin", "Firtsname2", "Burger", "First.Last", "Dr.", "Test GmbH",
-            "", "", "+1234567890", "", "", "",
-            "", "", "", "www.mypage.com", "1", "February", "1985", null);
-    app.getContactHelper().modifyContact(before, index, contact);
-    List<ContactData> after = app.getContactHelper().getContactList();
+    ContactData contact = new ContactData()
+            .withId(before.get(index).getId())
+            .withFirstname("Anna")
+            .withLastname("Frei")
+            .withAddress("Everstreet 1, Evertown 1234")
+            .withHome("+2234567890")
+            .withEmail("anna.frei@gmail.com")
+            .withBday("10")
+            .withBmonth("February")
+            .withByear("1978")
+            .withNew_group("Test1");
+    app.contact().modify(before, index, contact);
+    List<ContactData> after = app.contact().list();
     Assert.assertEquals(after.size(), before.size());
 
     before.remove(index);

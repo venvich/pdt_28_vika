@@ -11,25 +11,31 @@ public class ContactDeletionTestsWithAlert extends TestBase {
 
   @BeforeMethod
   public void ensurePreconditions() {
-    app.getNavigationHelper().goHome();
-    if (!app.getContactHelper().isThereAContact()) {
-      app.getContactHelper().createContact(new ContactData("Peter", "Paul", "Klee", "First.Last", "Dr.", "Test GmbH",
-              "Neverstreet 1, Nevertown 123", "Neverstreet 1, Nevertown 1234",
-              "+1234567890", "", "", "",
-              "", "", "", "www.mypage.com", "1", "January", "1980", "Test1"));
+    app.goTo().goHome();
+    if (app.contact().list().size() == 0) {
+      app.contact().createContact(new ContactData()
+              .withFirstname("Paul")
+              .withLastname("Miller")
+              .withAddress("Everstreet 1, Evertown 1234")
+              .withHome("+3234567890")
+              .withEmail("paul.miller@gmail.com")
+              .withBday("3")
+              .withBmonth("January")
+              .withByear("1986")
+              .withNew_group("Test1"));
     }
   }
 
   @Test
   public void testContactDeletionWithAlert() {
 
-    List<ContactData> before = app.getContactHelper().getContactList();
+    List<ContactData> before = app.contact().list();
     int index = before.size() - 1;
-    app.getContactHelper().selectContact(index);
-    app.getContactHelper().deleteContact();
-    app.getNavigationHelper().goHome();
-    List<ContactData> after = app.getContactHelper().getContactList();
-    Assert.assertEquals(after.size(), index);
+    app.contact().selectContact(index);
+    app.contact().deleteContact();
+    app.goTo().goHome();
+    List<ContactData> after = app.contact().list();
+    Assert.assertEquals(after.size(), before.size() - 1);
 
     before.remove(index);
     Assert.assertEquals(before, after);
