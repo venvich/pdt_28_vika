@@ -30,15 +30,15 @@ public class ContactDeletionTestsWithAlert extends TestBase {
   public void testContactDeletionWithAlert() {
 
     List<ContactData> before = app.contact().list();
-    int index = before.size() - 1;
-    app.contact().selectContact(index);
-    app.contact().deleteContact();
+    ContactData deletedContact = before.iterator().next();
+    app.contact().deleteContactWithAlert(deletedContact);
     app.goTo().goHome();
     List<ContactData> after = app.contact().list();
     Assert.assertEquals(after.size(), before.size() - 1);
 
-    before.remove(index);
+    before.remove(deletedContact);
     Assert.assertEquals(before, after);
   }
+
 
 }
