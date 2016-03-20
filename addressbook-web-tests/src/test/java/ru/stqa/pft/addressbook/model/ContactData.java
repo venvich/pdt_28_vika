@@ -21,7 +21,7 @@ public class ContactData {
   private String bmonth;
   private String byear;
   private String new_group;
-  private int id = Integer.MAX_VALUE;;
+  private int id = Integer.MAX_VALUE;
 
 
   // setters

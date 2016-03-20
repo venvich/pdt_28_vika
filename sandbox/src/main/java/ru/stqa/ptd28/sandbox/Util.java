@@ -7,7 +7,7 @@ public class Util {
     Point p2 = new Point(5.0, -4.0);
 
     Point dist = new Point(p1, p2);
-    System.out.println("Расстояние между точками: " + dist.distance(p1, p2));
+    System.out.println("Расстояние между точками: " + Point.distance(p1, p2));
   }
 }
 
