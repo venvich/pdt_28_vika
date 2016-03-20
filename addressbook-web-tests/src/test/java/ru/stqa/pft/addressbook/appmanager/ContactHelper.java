@@ -217,4 +217,15 @@ public class ContactHelper extends HelperBase {
             .withEmail2(email2)
             .withEmail3(email3);
   }
+
+  public ContactData infoDetails(ContactData contact) {
+    detailsContactById(contact.getId());
+
+    return null;
+  }
+
+  private void detailsContactById(int id) {
+    click(By.cssSelector("a[href='view.php?id=" + id + "']"));
+    wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+  }
 }
