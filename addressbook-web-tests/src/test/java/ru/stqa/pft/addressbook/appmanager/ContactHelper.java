@@ -72,10 +72,6 @@ public class ContactHelper extends HelperBase {
     click(By.xpath(".//*[@id='maintable']/tbody/tr[" + index + "]/td[8]/a/img"));
     wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
   }
-  public void initContactModification() {
-    click(By.cssSelector("img[alt=\"Edit\"]"));
-    wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
-  }
 
   public void submitContactModification() {
     click(By.name("update"));
@@ -94,10 +90,6 @@ public class ContactHelper extends HelperBase {
     wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
   }
 
-  public boolean isThereAContact() {
-    return isElementPresent(By.name("selected[]"));
-  }
-
   public void createContact(ContactData contact) {
     initContactCreation();
     fillContactForm(contact, true);
@@ -105,16 +97,12 @@ public class ContactHelper extends HelperBase {
     gotoHomePage();
   }
 
-  public void modify(List<ContactData> before, int index, ContactData contact) {
-    selectContact(index);
+  public void modify(Set<ContactData> before, ContactData contact) {
+    selectContactById(contact.getId());
     initContactModification(before.size() + 1);
     fillContactForm(contact, false);
     submitContactModification();
     gotoHomePage();
-  }
-
-  public int getContactCount() {
-    return wd.findElements(By.name("selected[]")).size();
   }
 
   public List<ContactData> list() {
@@ -170,12 +158,6 @@ public class ContactHelper extends HelperBase {
     wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
   }
 
-  public void delete(int index) {
-    selectContact(index);
-    initContactModification(1);
-    submitContactDeletion();
-  }
-
   public void delete(ContactData contact) {
     selectContactById(contact.getId());
     initContactModificationById(contact.getId());
@@ -191,6 +173,5 @@ public class ContactHelper extends HelperBase {
     selectContactById(contact.getId());
     deleteContact();
   }
-
 
 }
