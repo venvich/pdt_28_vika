@@ -148,12 +148,15 @@ public class ContactHelper extends HelperBase {
       String address = cells.get(3).getText();
       String email = cells.get(4).getText();
       String phones = cells.get(5).getText();
+      String[] allPhones = phones.split("\n");
       ContactData contact = new ContactData()
               .withId(id)
               .withFirstname(firstname)
               .withLastname(lastname)
               .withAddress(address)
-              .withHome(phones)
+              .withHome(allPhones[0])
+              .withMobile(allPhones[1])
+              .withWork(allPhones[2])
               .withEmail(email);
       contactCache.add(contact);
     }
