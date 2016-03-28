@@ -15,21 +15,26 @@ public class ContactDetailsTests extends TestBase {
   public void testContactDetails() {
     app.goTo().gotoHomePage();
     ContactData contact = app.contact().all().iterator().next();
-    ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
-    ContactData detailsInfo = app.contact().infoDetails(contact);
 
-    assertThat(contact.getAllEmails(), equalTo(mergeDetails(contactInfoFromEditForm)));
+    ContactData contactInfoFromEditForm = app.contact().infoFromEditForm4Details(contact);
+    app.contact().getDetails();
+    //ContactData detailsInfo = app.contact().infoDetails(contact);
+    assertThat(contact.getAllNeededDetails(), equalTo(mergeDetails(contactInfoFromEditForm)));
   }
-
 
   public static String cleaned(String phone) {
     return phone.replaceAll("\\s", "").replaceAll("[-()]]", "");
   }
 
   private Object mergeDetails(ContactData contact) {
-    return Arrays.asList(contact.getEmail(), contact.getEmail2(), contact.getEmail3())
+    return Arrays.asList
+              (contact.getFirstname(), contact.getLastname(), contact.getAddress(),
+               contact.getHome(), contact.getMobile(), contact.getWork(),
+               contact.getEmail(), contact.getEmail2(), contact.getEmail3(),
+               contact.getBday(), contact.getBmonth(), contact.getByear(),
+               contact.getAddress2(), contact.getNewGroup())
             .stream().filter((s) -> ! s.equals(""))
-            .map(ContactEmailTests::cleaned)
+            .map(ContactDetailsTests::cleaned)
             .collect(Collectors.joining("\n"));
   }
 }

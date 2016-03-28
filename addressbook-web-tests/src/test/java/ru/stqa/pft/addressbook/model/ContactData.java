@@ -1,5 +1,7 @@
 package ru.stqa.pft.addressbook.model;
 
+import java.io.File;
+
 public class ContactData {
   private String firstname;
   private String firtsname2;
@@ -24,9 +26,19 @@ public class ContactData {
   private int id = Integer.MAX_VALUE;
   private String allPhones;
   private String allEmails;
+  private File photo;
+  private String allNeededDetails;
 
-  public String getAllEmails() {
-    return allEmails;
+
+  // setters
+  public ContactData withPhoto(File photo) {
+    this.photo = photo;
+    return this;
+  }
+
+  public ContactData withAllNeededDetails(String allNeededDetails) {
+    this.allNeededDetails = allNeededDetails;
+    return this;
   }
 
   public ContactData withAllEmails(String allEmails) {
@@ -34,19 +46,11 @@ public class ContactData {
     return this;
   }
 
-  public String getAllPhones() {
-    return allPhones;
-  }
-
   public ContactData withAllPhones(String allPhones) {
     this.allPhones = allPhones;
     return this;
   }
 
-
-
-
-  // setters
   public ContactData withFirstname(String firstname) {
     this.firstname = firstname;
     return this;
@@ -154,6 +158,20 @@ public class ContactData {
 
 
   // getters
+  public File getPhoto() {
+    return photo;
+  }
+
+  public String getAllNeededDetails() {
+    return allNeededDetails;
+  }
+
+  public String getAllEmails() {
+    return allEmails;
+  }
+
+  public String getAllPhones() { return allPhones; }
+
   public int getId() { return id; }
 
   public String getFirstname() { return firstname; }
@@ -198,33 +216,6 @@ public class ContactData {
     return work;
   }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-
-    ContactData that = (ContactData) o;
-
-    if (id != that.id) return false;
-    if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
-    if (lastname != null ? !lastname.equals(that.lastname) : that.lastname != null) return false;
-    if (address != null ? !address.equals(that.address) : that.address != null) return false;
-    if (home != null ? !home.equals(that.home) : that.home != null) return false;
-    return email != null ? email.equals(that.email) : that.email == null;
-
-  }
-
-  @Override
-  public int hashCode() {
-    int result = firstname != null ? firstname.hashCode() : 0;
-    result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
-    result = 31 * result + (address != null ? address.hashCode() : 0);
-    result = 31 * result + (home != null ? home.hashCode() : 0);
-    result = 31 * result + (email != null ? email.hashCode() : 0);
-    result = 31 * result + id;
-    return result;
-  }
-
   public String getFax() {
     return fax;
   }
@@ -252,6 +243,35 @@ public class ContactData {
   public String getByear() { return byear; }
 
   public String getNewGroup() { return new_group; }
+
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    ContactData that = (ContactData) o;
+
+    if (id != that.id) return false;
+    if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
+    if (lastname != null ? !lastname.equals(that.lastname) : that.lastname != null) return false;
+    if (address != null ? !address.equals(that.address) : that.address != null) return false;
+    if (home != null ? !home.equals(that.home) : that.home != null) return false;
+    return email != null ? email.equals(that.email) : that.email == null;
+
+  }
+
+  @Override
+  public int hashCode() {
+    int result = firstname != null ? firstname.hashCode() : 0;
+    result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
+    result = 31 * result + (address != null ? address.hashCode() : 0);
+    result = 31 * result + (home != null ? home.hashCode() : 0);
+    result = 31 * result + (email != null ? email.hashCode() : 0);
+    result = 31 * result + id;
+    return result;
+  }
+
 
   @Override
   public String toString() {
