@@ -1,7 +1,5 @@
 package ru.stqa.pft.addressbook.model;
 
-import java.io.File;
-
 public class ContactData {
   private String firstname;
   private String firtsname2;
@@ -26,19 +24,9 @@ public class ContactData {
   private int id = Integer.MAX_VALUE;
   private String allPhones;
   private String allEmails;
-  private File photo;
-  private String allNeededDetails;
 
-
-  // setters
-  public ContactData withPhoto(File photo) {
-    this.photo = photo;
-    return this;
-  }
-
-  public ContactData withAllNeededDetails(String allNeededDetails) {
-    this.allNeededDetails = allNeededDetails;
-    return this;
+  public String getAllEmails() {
+    return allEmails;
   }
 
   public ContactData withAllEmails(String allEmails) {
@@ -46,11 +34,19 @@ public class ContactData {
     return this;
   }
 
+  public String getAllPhones() {
+    return allPhones;
+  }
+
   public ContactData withAllPhones(String allPhones) {
     this.allPhones = allPhones;
     return this;
   }
 
+
+
+
+  // setters
   public ContactData withFirstname(String firstname) {
     this.firstname = firstname;
     return this;
@@ -158,20 +154,6 @@ public class ContactData {
 
 
   // getters
-  public File getPhoto() {
-    return photo;
-  }
-
-  public String getAllNeededDetails() {
-    return allNeededDetails;
-  }
-
-  public String getAllEmails() {
-    return allEmails;
-  }
-
-  public String getAllPhones() { return allPhones; }
-
   public int getId() { return id; }
 
   public String getFirstname() { return firstname; }
@@ -216,35 +198,6 @@ public class ContactData {
     return work;
   }
 
-  public String getFax() {
-    return fax;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public String getEmail2() {
-    return email2;
-  }
-
-  public String getEmail3() {
-    return email3;
-  }
-
-  public String getHomepage() {
-    return homepage;
-  }
-
-  public String getBday() { return bday; }
-
-  public String getBmonth() { return bmonth; }
-
-  public String getByear() { return byear; }
-
-  public String getNewGroup() { return new_group; }
-
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -272,6 +225,33 @@ public class ContactData {
     return result;
   }
 
+  public String getFax() {
+    return fax;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public String getEmail2() {
+    return email2;
+  }
+
+  public String getEmail3() {
+    return email3;
+  }
+
+  public String getHomepage() {
+    return homepage;
+  }
+
+  public String getBday() { return bday; }
+
+  public String getBmonth() { return bmonth; }
+
+  public String getByear() { return byear; }
+
+  public String getNewGroup() { return new_group; }
 
   @Override
   public String toString() {

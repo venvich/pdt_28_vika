@@ -50,7 +50,6 @@ public class ContactHelper extends HelperBase {
     new Select(wd.findElement(By.name("bday"))).selectByVisibleText(contactData.getBday());
     new Select(wd.findElement(By.name("bmonth"))).selectByVisibleText(contactData.getBmonth());
     type(By.name("byear"), contactData.getByear());
-    attach(By.name("photo"), contactData.getPhoto());
 
     if (creation) {
       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getNewGroup());
@@ -149,7 +148,6 @@ public class ContactHelper extends HelperBase {
       String address = cells.get(3).getText();
       String email = cells.get(4).getText();
       String phones = cells.get(5).getText();
-      String allNeededDetails = firstname+lastname+address+phones+email;
       //String[] allPhones = phones.split("\n");
       //String[] allEmails = email.split("\n");
       ContactData contact = new ContactData()
@@ -158,8 +156,7 @@ public class ContactHelper extends HelperBase {
               .withLastname(lastname)
               .withAddress(address)
               .withAllPhones(phones)
-              .withAllEmails(email)
-              .withAllNeededDetails(allNeededDetails);
+              .withAllEmails(email);
               //.withHome(allPhones[0])
              // .withMobile(allPhones[1])
              // .withWork(allPhones[2])
@@ -220,30 +217,6 @@ public class ContactHelper extends HelperBase {
             .withEmail2(email2)
             .withEmail3(email3);
   }
-  public ContactData infoFromEditForm4Details(ContactData contact) {
-    initContactModificationById(contact.getId());
-    String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
-    String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
-    String home = wd.findElement(By.name("home")).getAttribute("value");
-    String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
-    String work = wd.findElement(By.name("work")).getAttribute("value");
-    String address = wd.findElement(By.xpath(".//*[@id='content']/form[1]/textarea[1]")).getText();
-    String email = wd.findElement(By.name("email")).getAttribute("value");
-    String email2 = wd.findElement(By.name("email2")).getAttribute("value");
-    String email3 = wd.findElement(By.name("email3")).getAttribute("value");
-    wd.navigate().back();
-    return new ContactData()
-            .withId(contact.getId())
-            .withFirstname(firstname)
-            .withLastname(lastname)
-            .withHome(home)
-            .withMobile(mobile)
-            .withWork(work)
-            .withAddress(address)
-            .withEmail(email)
-            .withEmail2(email2)
-            .withEmail3(email3);
-  }
 
   public ContactData infoDetails(ContactData contact) {
     detailsContactById(contact.getId());
@@ -254,12 +227,5 @@ public class ContactHelper extends HelperBase {
   private void detailsContactById(int id) {
     click(By.cssSelector("a[href='view.php?id=" + id + "']"));
     wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
-    //String details = contactCache.
-  }
-
-  public String getDetails() {
-    String text = wd.findElement(By.xpath(".//*[@id='content']")).getText();
-    System.out.println(text);
-    return text;
   }
 }
