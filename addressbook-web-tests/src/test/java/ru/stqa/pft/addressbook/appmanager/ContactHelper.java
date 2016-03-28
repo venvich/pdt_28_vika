@@ -50,6 +50,7 @@ public class ContactHelper extends HelperBase {
     new Select(wd.findElement(By.name("bday"))).selectByVisibleText(contactData.getBday());
     new Select(wd.findElement(By.name("bmonth"))).selectByVisibleText(contactData.getBmonth());
     type(By.name("byear"), contactData.getByear());
+    attach(By.name("photo"), contactData.getPhoto());
 
     if (creation) {
       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getNewGroup());
@@ -157,6 +158,7 @@ public class ContactHelper extends HelperBase {
               .withAddress(address)
               .withAllPhones(phones)
               .withAllEmails(email);
+
               //.withHome(allPhones[0])
              // .withMobile(allPhones[1])
              // .withWork(allPhones[2])
