@@ -52,11 +52,11 @@ public class ContactHelper extends HelperBase {
     type(By.name("byear"), contactData.getByear());
     attach(By.name("photo"), contactData.getPhoto());
 
-    if (creation) {
-      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getNewGroup());
-    } else {
-      Assert.assertFalse(isElementPresent(By.name("new_group")));
-    }
+//    if (creation) {
+//      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getNewGroup());
+//    } else {
+//      Assert.assertFalse(isElementPresent(By.name("new_group")));
+//    }
   }
 
   public void initContactCreation() {

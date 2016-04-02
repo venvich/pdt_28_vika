@@ -1,32 +1,61 @@
 package ru.stqa.pft.addressbook.model;
 
 import java.io.File;
+import com.google.gson.annotations.Expose;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
+@XStreamAlias("contact")
 public class ContactData {
+  @Expose
   private String firstname;
+  @XStreamOmitField
   private String firtsname2;
+  @Expose
   private String lastname;
+  @XStreamOmitField
   private String nickname;
+  @XStreamOmitField
   private String title;
+  @XStreamOmitField
   private String company;
+  @Expose
   private String address;
+  @XStreamOmitField
   private String address2;
+  @Expose
   private String home;
+  @Expose
   private String mobile;
+  @Expose
   private String work;
+  @XStreamOmitField
   private String fax;
+  @Expose
   private String email;
+  @Expose
   private String email2;
+  @Expose
   private String email3;
+  @XStreamOmitField
   private String homepage;
+  @Expose
   private String bday;
+  @Expose
   private String bmonth;
+  @Expose
   private String byear;
+  @XStreamOmitField
   private String new_group;
+  @XStreamOmitField
   private int id = Integer.MAX_VALUE;
+  @XStreamOmitField
   private String allPhones;
+  @XStreamOmitField
   private File photo;
+  @XStreamOmitField
   private String allEmails;
+
 
   // setters
   public ContactData withPhoto(File photo) {
@@ -261,10 +290,7 @@ public class ContactData {
     return "ContactData{" +
             "firstname='" + firstname + '\'' +
             ", lastname='" + lastname + '\'' +
-            ", address='" + address + '\'' +
-            ", home='" + home + '\'' +
-            ", email='" + email + '\'' +
-            ", id='" + id + '\'' +
+            ", id=" + id +
             '}';
   }
 
