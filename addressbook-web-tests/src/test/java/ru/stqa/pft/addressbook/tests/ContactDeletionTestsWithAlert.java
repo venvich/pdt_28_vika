@@ -31,8 +31,8 @@ public class ContactDeletionTestsWithAlert extends TestBase {
               .withBday("3")
               .withBmonth("January")
               .withByear("1986")
-              .withPhoto(photo)
-              .withNew_group("Test1"));
+              .withPhoto(photo));
+              //.withNew_group("Test1"));
     }
   }
 

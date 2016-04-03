@@ -1,6 +1,9 @@
 package ru.stqa.pft.addressbook.model;
 
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
+
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
@@ -82,9 +85,7 @@ public class ContactData {
   //@Column(name = "byear")
   @Transient
   private String byear;
-  @XStreamOmitField
-  @Transient
-  private String new_group;
+
   @XStreamOmitField
   @Id
   @Column(name = "id")
@@ -99,6 +100,11 @@ public class ContactData {
   @XStreamOmitField
   @Transient
   private String allEmails;
+
+  @ManyToMany
+  @JoinTable(name = "address_in_groups",
+          joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+  private Set<GroupData> groups = new HashSet<GroupData>();
 
 
   // setters
@@ -212,10 +218,6 @@ public class ContactData {
     return this;
   }
 
-  public ContactData withNew_group(String new_group) {
-    this.new_group = new_group;
-    return this;
-  }
 
   public ContactData withId(int id) {
     this.id = id;
@@ -306,7 +308,6 @@ public class ContactData {
 
   public String getByear() { return byear; }
 
-  public String getNewGroup() { return new_group; }
 
   @Override
   public boolean equals(Object o) {
@@ -329,13 +330,23 @@ public class ContactData {
     return result;
   }
 
+  public Groups getGroups() {
+    return new Groups(groups);
+  }
+
   @Override
   public String toString() {
     return "ContactData{" +
+
             "firstname='" + firstname + '\'' +
             ", lastname='" + lastname + '\'' +
             ", id=" + id +
             '}';
   }
 
+  public ContactData inGroup(GroupData group) {
+    groups.add(group);
+    return this;
+
+  }
 }

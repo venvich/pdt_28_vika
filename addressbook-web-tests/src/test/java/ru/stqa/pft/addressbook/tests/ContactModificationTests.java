@@ -7,6 +7,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.Groups;
 
 
 import java.io.File;
@@ -34,8 +35,8 @@ public class ContactModificationTests extends TestBase {
               .withBday("5")
               .withBmonth("February")
               .withByear("1979")
-              .withPhoto(photo)
-              .withNew_group("Test1"));
+              .withPhoto(photo));
+              //.withNew_group("Test1"));
     }
   }
 
@@ -54,7 +55,7 @@ public class ContactModificationTests extends TestBase {
             .withBday("10")
             .withBmonth("February")
             .withByear("1978")
-            .withNew_group("Test1")
+            //.withNew_group("Test1")
             .withPhoto(photo);
     app.contact().modify(contact);
     app.goTo().goHome();
@@ -66,6 +67,7 @@ public class ContactModificationTests extends TestBase {
 
   @Test
   public void testContactModificationDB() {
+    Groups groups = app.db().groups();
     Contacts before = app.db().contacts();
     ContactData modifiedContact = before.iterator().next();
     File photo = new File("src\\test\\resources\\614_0.jpg");
@@ -79,7 +81,8 @@ public class ContactModificationTests extends TestBase {
             .withBday("10")
             .withBmonth("February")
             .withByear("1978")
-            .withNew_group("Test1")
+            .inGroup(groups.iterator().next())
+            //.withNew_group("Test1")
             .withPhoto(photo);
     app.contact().modify(contact);
     assertThat(app.contact().count(), equalTo(before.size()));

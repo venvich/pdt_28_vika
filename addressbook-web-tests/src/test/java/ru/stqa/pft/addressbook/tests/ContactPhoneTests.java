@@ -28,8 +28,8 @@ public class ContactPhoneTests extends TestBase {
               .withEmail("markus.meier@gmail.com")
               .withBday("2")
               .withBmonth("January")
-              .withByear("1985")
-              .withNew_group("Test1"));
+              .withByear("1985"));
+             // .withNew_group("Test1"));
     }
   }
 
