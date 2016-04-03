@@ -19,7 +19,7 @@ public class GroupDeletionTests extends TestBase {
       }
     }
 
-    @Test
+    @Test(enabled = false)
     public void testGroupDeletion() {
       app.goTo().groupPage();
       Groups before = app.group().all();
@@ -41,5 +41,6 @@ public class GroupDeletionTests extends TestBase {
     assertThat(app.group().count(), equalTo(before.size() - 1));
     Groups after = app.db().groups();
     assertThat(after, equalTo(before.without(deletedGroup)));
+    verifyGroupListInUI();
   }
 }

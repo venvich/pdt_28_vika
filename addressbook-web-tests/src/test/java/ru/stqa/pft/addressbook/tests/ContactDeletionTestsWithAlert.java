@@ -36,7 +36,7 @@ public class ContactDeletionTestsWithAlert extends TestBase {
     }
   }
 
-  @Test
+  @Test(enabled = false)
   public void testContactDeletionWithAlert() {
 
     Contacts before = app.contact().all();
@@ -61,6 +61,7 @@ public class ContactDeletionTestsWithAlert extends TestBase {
     Contacts after = app.db().contacts();
 
     assertThat(after, equalTo(before.without(deletedContact)));
+    verifyContactListInUI();
 
   }
 }

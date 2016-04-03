@@ -39,7 +39,7 @@ public class ContactModificationTests extends TestBase {
     }
   }
 
-  @Test
+  @Test(enabled = false)
   public void testContactModification() {
     Contacts before = app.contact().all();
     ContactData modifiedContact = before.iterator().next();
@@ -87,5 +87,7 @@ public class ContactModificationTests extends TestBase {
     Contacts after = app.db().contacts();
 
     assertThat(after, equalTo(before.without(modifiedContact).withAdded(contact)));
+    verifyContactListInUI();
   }
+
 }

@@ -53,7 +53,7 @@ public class GroupCreationTests extends TestBase {
   }
 
 
-    @Test (dataProvider = "validGroupsFromJson")
+    @Test (dataProvider = "validGroupsFromJson", enabled = false)
     public void testGroupCreation(GroupData group) {
         app.goTo().groupPage();
         Groups before = app.group().all();
@@ -77,7 +77,7 @@ public class GroupCreationTests extends TestBase {
             before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
   }
 
-  @Test
+  @Test(enabled = false)
   public void testBadGroupCreation() {
     app.goTo().groupPage();
     Groups before = app.group().all();
@@ -89,5 +89,6 @@ public class GroupCreationTests extends TestBase {
     Groups after = app.group().all();
 
     assertThat(after, equalTo(before));
+    verifyGroupListInUI();
   }
 }

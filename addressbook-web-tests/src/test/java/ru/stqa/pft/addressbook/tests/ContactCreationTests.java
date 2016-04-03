@@ -52,7 +52,7 @@ public class ContactCreationTests extends TestBase {
     }
   }
     
-    @Test(dataProvider = "validContactsFromJson")
+    @Test(dataProvider = "validContactsFromJson", enabled = false)
     public void testContactCreation(ContactData contact) {
       Contacts before = app.contact().all();
       app.contact().createContact(contact);
@@ -75,6 +75,7 @@ public class ContactCreationTests extends TestBase {
 
     assertThat(after, equalTo(
             before.withAdded(contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
+    verifyContactListInUI();
   }
 
   @Test(enabled = false)
