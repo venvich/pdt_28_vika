@@ -100,9 +100,9 @@ public class ContactHelper extends HelperBase {
     gotoHomePage();
   }
 
-  public void modify(Set<ContactData> before, ContactData contact) {
+  public void modify(ContactData contact) {
     selectContactById(contact.getId());
-    initContactModification(before.size() + 1);
+    initContactModificationById(contact.getId());
     fillContactForm(contact, false);
     submitContactModification();
     contactCache = null;

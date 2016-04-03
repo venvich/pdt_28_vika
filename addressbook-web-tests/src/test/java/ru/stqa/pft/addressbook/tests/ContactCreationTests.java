@@ -55,18 +55,6 @@ public class ContactCreationTests extends TestBase {
     @Test(dataProvider = "validContactsFromJson")
     public void testContactCreation(ContactData contact) {
       Contacts before = app.contact().all();
-//      File photo = new File("src\\test\\resources\\614_0.jpg");
-//      ContactData contact = new ContactData()
-//              .withFirstname("Peter")
-//              .withLastname("Klee")
-//              .withAddress("Neverstreet 1, Nevertown 1234")
-//              .withHome("+1234567890")
-//              .withEmail("peter.klee@gmail.com")
-//              .withBday("1")
-//              .withBmonth("January")
-//              .withByear("1980")
-//              .withNew_group("Test1")
-//              .withPhoto(photo);
       app.contact().createContact(contact);
       Contacts after = app.contact().all();
       assertThat(app.contact().count(), equalTo(before.size() + 1));
@@ -75,6 +63,19 @@ public class ContactCreationTests extends TestBase {
       assertThat(after, equalTo(
               before.withAdded(contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
     }
+
+  @Test(dataProvider = "validContactsFromJson")
+  public void testContactCreationDB(ContactData contact) {
+    app.goTo().goHome();
+    Contacts before = app.db().contacts();
+    app.contact().createContact(contact);
+    app.goTo().goHome();
+    Contacts after = app.db().contacts();
+    assertThat(app.contact().count(), equalTo(before.size() + 1));
+
+    assertThat(after, equalTo(
+            before.withAdded(contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
+  }
 
   @Test(enabled = false)
   public void testCurrentDir() {

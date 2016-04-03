@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
+import java.io.File;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -18,8 +19,9 @@ public class ContactDeletionTestsWithAlert extends TestBase {
 
   @BeforeMethod
   public void ensurePreconditions() {
-    app.goTo().goHome();
-    if (app.contact().all().size() == 0) {
+    File photo = new File("src\\test\\resources\\614_0.jpg");
+    if (app.db().contacts().size() == 0) {
+      app.goTo().goHome();
       app.contact().createContact(new ContactData()
               .withFirstname("Paul")
               .withLastname("Miller")
@@ -29,6 +31,7 @@ public class ContactDeletionTestsWithAlert extends TestBase {
               .withBday("3")
               .withBmonth("January")
               .withByear("1986")
+              .withPhoto(photo)
               .withNew_group("Test1"));
     }
   }
@@ -47,5 +50,17 @@ public class ContactDeletionTestsWithAlert extends TestBase {
 
   }
 
+  @Test
+  public void testContactDeletionWithAlertDB() {
+    app.goTo().goHome();
+    Contacts before = app.db().contacts();
+    ContactData deletedContact = before.iterator().next();
+    app.contact().deleteContactWithAlert(deletedContact);
+    app.goTo().goHome();
+    assertThat(app.contact().count(), equalTo(before.size() - 1));
+    Contacts after = app.db().contacts();
 
+    assertThat(after, equalTo(before.without(deletedContact)));
+
+  }
 }
