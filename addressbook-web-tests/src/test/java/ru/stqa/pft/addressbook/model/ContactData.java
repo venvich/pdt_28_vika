@@ -4,62 +4,106 @@ import java.io.File;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
 
 @XStreamAlias("contact")
+@Entity
+@Table(name = "addressbook")
 public class ContactData {
   @Expose
+  @Column(name = "firstname")
   private String firstname;
   @XStreamOmitField
+  @Column(name = "middlename")
   private String firtsname2;
   @Expose
+  @Column(name = "lastname")
   private String lastname;
   @XStreamOmitField
+  @Column(name = "nickname")
   private String nickname;
   @XStreamOmitField
+  @Column(name = "title")
   private String title;
   @XStreamOmitField
+  @Column(name = "company")
   private String company;
   @Expose
+  @Column(name = "address")
+  @Type(type = "text")
   private String address;
   @XStreamOmitField
+  @Column(name = "address2")
+  @Type(type = "text")
   private String address2;
   @Expose
+  @Column(name = "home")
+  @Type(type = "text")
   private String home;
   @Expose
+  @Column(name = "mobile")
+  @Type(type = "text")
   private String mobile;
   @Expose
+  @Column(name = "work")
+  @Type(type = "text")
   private String work;
   @XStreamOmitField
+  @Column(name = "fax")
+  @Type(type = "text")
   private String fax;
   @Expose
+  @Column(name = "email")
+  @Type(type = "text")
   private String email;
   @Expose
+  @Column(name = "email2")
+  @Type(type = "text")
   private String email2;
   @Expose
+  @Column(name = "email3")
+  @Type(type = "text")
   private String email3;
   @XStreamOmitField
+  @Column(name = "homepage")
+  @Type(type = "text")
   private String homepage;
   @Expose
+  //@Column(name = "bday")
+  @Transient
   private String bday;
   @Expose
+  //@Column(name = "bmonth")
+  @Transient
   private String bmonth;
   @Expose
+  //@Column(name = "byear")
+  @Transient
   private String byear;
   @XStreamOmitField
+  @Transient
   private String new_group;
   @XStreamOmitField
+  @Id
+  @Column(name = "id")
   private int id = Integer.MAX_VALUE;
   @XStreamOmitField
+  @Transient
   private String allPhones;
   @XStreamOmitField
-  private File photo;
+  @Column(name = "photo")
+  @Type(type = "text")
+  private String photo;
   @XStreamOmitField
+  @Transient
   private String allEmails;
 
 
   // setters
   public ContactData withPhoto(File photo) {
-    this.photo = photo;
+    this.photo = photo.getPath();
     return this;
   }
 
@@ -183,7 +227,7 @@ public class ContactData {
   public int getId() { return id; }
 
   public File getPhoto() {
-    return photo;
+    return new File(photo);
   }
 
   public String getAllEmails() {
