@@ -20,6 +20,7 @@ public class ApplicationManager {
   private RegistrationHelper registrationHelper;
   private FtpHelper ftp;
   private MailHelper mailHelper;
+  private NavigationHelper navi;
 
   public ApplicationManager(String browser) {
     this.browser = browser;
@@ -59,6 +60,14 @@ public class ApplicationManager {
     }
     return ftp;
   }
+
+  public NavigationHelper navi() {
+    if (navi == null) {
+      navi = new NavigationHelper(this);
+    }
+    return navi;
+  }
+  //navigationHelper = new NavigationHelper(wd);
 
   public WebDriver getDriver() {
     if (wd == null) {
