@@ -8,8 +8,12 @@ import java.util.concurrent.TimeUnit;
 
 public class NavigationHelper extends HelperBase {
 
-  public NavigationHelper(ApplicationManager applicationManager) {
-    super(applicationManager);
+  public NavigationHelper(ApplicationManager app) {
+    super(app);
+  }
+
+  public void goToLoginPage() {
+    wd.get(app.getProperty("web.baseUrl") + "/login_page.php");
   }
 
   public void manageUsers() {
@@ -20,6 +24,10 @@ public class NavigationHelper extends HelperBase {
   public void myView() {
     click(By.linkText("My View"));
     wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+  }
+
+  public void selectUserById(int id) {
+    click(By.cssSelector("a[href=\"manage_user_edit_page.php?user_id=" + id +"\"]"));
   }
 
 }

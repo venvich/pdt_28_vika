@@ -1,18 +1,16 @@
 package ru.stqa.pft.mantis.tests;
 
-import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.lanwen.verbalregex.VerbalExpression;
 import ru.stqa.pft.mantis.appmanager.HttpSession;
 import ru.stqa.pft.mantis.model.MailMessage;
-import ru.stqa.pft.mantis.model.Users;
+import ru.stqa.pft.mantis.model.UsersData;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.assertTrue;
 
@@ -20,20 +18,22 @@ public class ResetPasswordByAdmin extends TestBase {
 
   @Test
   public void testRegistration() throws IOException, MessagingException {
-    HttpSession session = app.newSession();
-    assertTrue(session.login("administrator", "root"));
-    assertTrue(session.isLoggedInAs("administrator"));
+    String newPassword = "password1";
+    app.navi().goToLoginPage();
+    app.userHelper().login(app.getProperty("web.adminLogin"), app.getProperty("web.adminPassword"));
     app.navi().manageUsers();
-    selectUserById(user.getId());
-    resetPassword();
-    List<MailMessage> mailMessages = app.mail().waitForMail(2, 10000);
-    String resetPasswordLink = findResetPasswordLink(mailMessages, user.getEmail());
-    clickLinkResetPassword();
-    String newPassword = "password";
-    setNewPassword(newPassword);
-    assertTrue(app.newSession().login(user, newPassword));
 
+    UsersData changedUser = app.userHelper().getAnyUserFromBD();
+    app.navi().selectUserById(changedUser.getId());
+    app.userHelper().resetPassword();
+    List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);
+    String pwResetConfirmationLink = findResetPasswordLink(mailMessages, changedUser.getEmail());
+    app.registration().finish(pwResetConfirmationLink, newPassword);
 
+    UsersData user = app.userHelper().getUserByIdFromBD(changedUser.getId());
+
+    assertTrue(app.newSession().login(user.getUsername(), newPassword));
+    //assertTrue(app.newSession().isLoggedInAs(user.getUsername()));
   }
 
   private String findResetPasswordLink(List<MailMessage> mailMessages, String email) {
