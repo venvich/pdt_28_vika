@@ -33,4 +33,9 @@ public class UserHelper extends HelperBase {
     Users users = app.db().getUsersFromBD();
     return users.stream().filter((u) -> u.getId() == id).findFirst().get();
   }
+
+  public String checkUser() {
+    String username = wd.findElement(By.xpath("html/body/table[1]/tbody/tr/td[1]/span[1]")).getText();
+    return username;
+  }
 }

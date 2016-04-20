@@ -12,6 +12,7 @@ import javax.mail.MessagingException;
 import java.io.IOException;
 import java.util.List;
 
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class ResetPasswordByAdmin extends TestBase {
@@ -29,11 +30,12 @@ public class ResetPasswordByAdmin extends TestBase {
     List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);
     String pwResetConfirmationLink = findResetPasswordLink(mailMessages, changedUser.getEmail());
     app.registration().finish(pwResetConfirmationLink, newPassword);
-
-    UsersData user = app.userHelper().getUserByIdFromBD(changedUser.getId());
-
-    assertTrue(app.newSession().login(user.getUsername(), newPassword));
-    //assertTrue(app.newSession().isLoggedInAs(user.getUsername()));
+    
+    app.navi().goToLoginPage();
+    app.userHelper().login(changedUser.getUsername(), newPassword);
+    app.navi().myView();
+    String guiUser = app.userHelper().checkUser();
+    assertEquals(guiUser, changedUser.getUsername());
   }
 
   private String findResetPasswordLink(List<MailMessage> mailMessages, String email) {
