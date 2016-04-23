@@ -30,7 +30,7 @@ public class ResetPasswordByAdmin extends TestBase {
     List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);
     String pwResetConfirmationLink = findResetPasswordLink(mailMessages, changedUser.getEmail());
     app.registration().finish(pwResetConfirmationLink, newPassword);
-    
+
     app.navi().goToLoginPage();
     app.userHelper().login(changedUser.getUsername(), newPassword);
     app.navi().myView();
